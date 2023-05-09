@@ -14,6 +14,7 @@ echo -e "\e[031;1m 1\e[0m) Create User Account (\e[34;1musernew\e[0m)"
 echo -e "\e[031;1m 2\e[0m) Delete User Account (\e[34;1mdeluser\e[0m)"
 echo -e "\e[031;1m 3\e[0m) View User Account (\e[34;1mmember\e[0m)"
 echo -e "\e[031;1m 4\e[0m) Restart Stunnel (\e[34;1mmember\e[0m)"
+echo -e "\e[031;1m 5\e[0m) Reboot VPS (\e[34;1mmember\e[0m)"
 echo -e "=====================***-NS-SSH-***===================="
 echo -e "\e[031;1mx\e[0m) Exit"
 echo -e ""
@@ -34,7 +35,11 @@ echo -e ""
 	4)	
         clear
         /etc/init.d/stunnel4 restart
-	;; 
+	;;
+	5)	
+        clear
+        reboot
+	;;
 	x)
         ;;
         *) menu;;
