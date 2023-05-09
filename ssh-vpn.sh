@@ -89,6 +89,9 @@ chmod +x usernew
 chmod +x member
 chmod +x deluser
 
+# menu auto load
+sed -i '$ i\menu' ~/.bashrc
+
 # finishing
 cd
 chown -R www-data:www-data /home/vps/public_html
