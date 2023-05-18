@@ -39,7 +39,7 @@ echo -e ""
 	;;
 	5)	
         clear
-        bash <(curl -L -s https://raw.githubusercontent.com/teddysun/across/master/bbr.sh)
+        bash <(curl -L -s https://raw.githubusercontent.com/ns009/mini/main/bbr.sh)
 	6)	
         clear
         reboot
