@@ -16,6 +16,7 @@ echo -e "\e[031;1m 3\e[0m) View User Account (\e[34;1mmember\e[0m)"
 echo -e "\e[031;1m 4\e[0m) Restart Stunnel (\e[34;1mmember\e[0m)"
 echo -e "\e[031;1m 5\e[0m) Install BBR (\e[34;1mmember\e[0m)"
 echo -e "\e[031;1m 6\e[0m) Reboot VPS (\e[34;1mmember\e[0m)"
+echo -e "\e[031;1m 7\e[0m) X-UI (\e[34;1x-ui\e[0m)"
 echo -e "=====================***-NS-SSH-***===================="
 echo -e "\e[031;1mx\e[0m) Exit"
 echo -e ""
@@ -43,6 +44,10 @@ echo -e ""
 	6)	
         clear
         reboot
+	;;
+ 	7)	
+        clear
+        x-ui
 	;;
 	x)
         ;;
