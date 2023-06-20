@@ -5,8 +5,9 @@ echo -e "\e[93m            [2] Edit Port Stunnel"
 echo -e "\e[93m            [x] Exit"
 echo -e "\e[0m                                                   "
 echo -e "\e[94m[][][]======================================[][][]\e[0m"
-			
-			1)
+read -p "Masukkan pilihan anda, kemudian tekan ENTER: " option1
+	case $option1 in
+   			1)
 			clear
 			editdropbear
 			exit
