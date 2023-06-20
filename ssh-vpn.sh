@@ -76,17 +76,17 @@ wget -O menu "https://raw.githubusercontent.com/ns009/mini/main/menu.sh"
 wget -O usernew "https://raw.githubusercontent.com/ns009/mini/main/usernew.sh"
 wget -O member "https://raw.githubusercontent.com/ns009/mini/main/member.sh"
 wget -O delete "https://raw.githubusercontent.com/ns009/mini/main/deluser.sh"
-wget -O edit_ports "https://raw.githubusercontent.com/ns009/mini/main/edit_ports.sh"
-wget -O edit_dropbear "https://raw.githubusercontent.com/ns009/mini/main/edit_dropbear.sh"
-wget -O edit_stunnel4 "https://raw.githubusercontent.com/ns009/mini/main/edit_stunnel4.sh"
+wget -O editports "https://raw.githubusercontent.com/ns009/mini/main/editports.sh"
+wget -O editdropbear "https://raw.githubusercontent.com/ns009/mini/main/editdropbear.sh"
+wget -O editstunnel4 "https://raw.githubusercontent.com/ns009/mini/main/editstunnel4.sh"
 
 chmod +x menu
 chmod +x usernew
 chmod +x member
 chmod +x deluser
-chmod +x edit_ports
-chmod +x edit_dropbear
-chmod +x edit_stunnel4
+chmod +x editports
+chmod +x editdropbear
+chmod +x editstunnel4
 
 # menu auto load
 sed -i '$ i\menu' ~/.bashrc
