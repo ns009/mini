@@ -8,7 +8,7 @@ echo -e "\e[0m                                                   "
 read -p "       Select From Options [1-2 or x] :  " Port
 echo -e "\e[0m                                                   "
 echo -e "\e[94m[][][]======================================[][][]\e[0m"
-case $Port in
+case $Port
 			
 			1)
 			clear
