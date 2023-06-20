@@ -14,9 +14,10 @@ echo -e "\e[031;1m 1\e[0m) Create User Account (\e[34;1musernew\e[0m)"
 echo -e "\e[031;1m 2\e[0m) Delete User Account (\e[34;1mdeluser\e[0m)"
 echo -e "\e[031;1m 3\e[0m) View User Account (\e[34;1mmember\e[0m)"
 echo -e "\e[031;1m 4\e[0m) Restart Service (\e[34;1mrestartsvrc\e[0m)"
-echo -e "\e[031;1m 5\e[0m) Change Port (\e[34;1mchangeport\e[0m)"
-echo -e "\e[031;1m 6\e[0m) Reboot VPS (\e[34;1mreboot\e[0m)"
-echo -e "\e[031;1m 7\e[0m) X-UI (\e[34;1x-ui\e[0m)"
+echo -e "\e[031;1m 5\e[0m) Edit Port DB (\e[34;1mchangeport\e[0m)"
+echo -e "\e[031;1m 6\e[0m) Edit Port SSL (\e[34;1mchangeport\e[0m)"
+echo -e "\e[031;1m 7\e[0m) Reboot VPS (\e[34;1mreboot\e[0m)"
+echo -e "\e[031;1m 8\e[0m) X-UI (\e[34;1x-ui\e[0m)"
 echo -e "\e[031;1m x\e[0m) Exit"
 echo -e "=====================***-NS-SSH-***===================="
 echo -e ""
@@ -41,13 +42,17 @@ echo -e ""
 	;;
 	5)	
         clear
-        bash editports
+        editdropbear
 	;;
-	6)	
+ 	6)	
+        clear
+        editstunnel4
+	;;
+	7)	
         clear
         reboot
 	;;
- 	7)	
+ 	8)	
         clear
         x-ui
 	;;
