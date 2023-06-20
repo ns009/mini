@@ -41,7 +41,7 @@ echo -e ""
 	;;
 	5)	
         clear
-        edit_ports
+        bash edit_ports
 	;;
 	6)	
         clear
