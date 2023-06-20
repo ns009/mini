@@ -17,7 +17,7 @@ echo -e "\e[031;1m 4\e[0m) Restart Service (\e[34;1mrestartsvrc\e[0m)"
 echo -e "\e[031;1m 5\e[0m) Change Port (\e[34;1mchangeport\e[0m)"
 echo -e "\e[031;1m 6\e[0m) Reboot VPS (\e[34;1mreboot\e[0m)"
 echo -e "\e[031;1m 7\e[0m) X-UI (\e[34;1x-ui\e[0m)"
-echo -e "\e[031;1mx\e[0m)  Exit"
+echo -e "\e[031;1m x\e[0m) Exit"
 echo -e "=====================***-NS-SSH-***===================="
 echo -e ""
 	read -p "Masukkan pilihan anda, kemudian tekan ENTER: " option1
