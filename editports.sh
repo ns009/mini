@@ -10,11 +10,11 @@ echo -e ""
 	case $option1 in
 	1)  
         clear
-        usernew
+        editdropbear
         ;;
         2)  
         clear
-        deluser
+        editstunnel4
         ;;
         x)
         ;;
