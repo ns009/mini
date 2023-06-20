@@ -11,15 +11,6 @@ NET=$(ip -o $ANU -4 route show to default | awk '{print $5}');
 source /etc/os-release
 ver=$VERSION_ID
 
-#detail nama perusahaan
-country=MY
-state=KL
-locality=MY
-organization=ratt.website
-organizationalunit=ratt.website
-commonname=ratt.website
-email=admin@ratt.website
-
 # go to root
 cd
 
