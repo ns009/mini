@@ -11,11 +11,11 @@ echo -e ""
 	case $option1 in
 	1)  
         clear
-        editdropbear
+        bash editdropbear
         ;;
         2)  
         clear
-        editstunnel4
+        bash editstunnel4
         ;;
         x)
         ;;
