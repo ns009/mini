@@ -14,12 +14,12 @@ case $Port in
 			
 			1)
 			clear
-			edit_dropbear
+			editdropbear
 			exit
 			;;
 			2)
 			clear
-			edit_stunnel4
+			editstunnel4
 			exit
 			;;
 			x)
