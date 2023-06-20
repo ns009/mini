@@ -53,5 +53,6 @@ echo -e ""
 	;;
 	x)
         ;;
-        *) menu;;
+        *) menu
+	;;
         esac
