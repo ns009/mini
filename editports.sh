@@ -4,7 +4,7 @@ echo -e "=====================***-MENU-***====================="
 echo -e "\e[033;1m-SSH & VPN"
 echo -e "\e[031;1m 1\e[0m) Edit Port Dropbear"
 echo -e "\e[031;1m 2\e[0m) Edit Port Stunnel"
-echo -e "\e[031;1mx\e[0m) Exit"
+echo -e "\e[031;1m x\e[0m) Exit"
 echo -e "=====================***-NS-SSH-***===================="
 echo -e ""
 	read -p "Masukkan pilihan anda, kemudian tekan ENTER: " option1
