@@ -13,9 +13,9 @@ echo -e "\e[033;1m-SSH & VPN"
 echo -e "\e[031;1m 1\e[0m) Create User Account (\e[34;1musernew\e[0m)"
 echo -e "\e[031;1m 2\e[0m) Delete User Account (\e[34;1mdeluser\e[0m)"
 echo -e "\e[031;1m 3\e[0m) View User Account (\e[34;1mmember\e[0m)"
-echo -e "\e[031;1m 4\e[0m) Restart Stunnel (\e[34;1mmember\e[0m)"
-echo -e "\e[031;1m 5\e[0m) Install BBR (\e[34;1mmember\e[0m)"
-echo -e "\e[031;1m 6\e[0m) Reboot VPS (\e[34;1mmember\e[0m)"
+echo -e "\e[031;1m 4\e[0m) Restart Service (\e[34;1mrestartsvrc\e[0m)"
+echo -e "\e[031;1m 5\e[0m) Change Port (\e[34;1mchangeport\e[0m)"
+echo -e "\e[031;1m 6\e[0m) Reboot VPS (\e[34;1mreboot\e[0m)"
 echo -e "\e[031;1m 7\e[0m) X-UI (\e[34;1x-ui\e[0m)"
 echo -e "=====================***-NS-SSH-***===================="
 echo -e "\e[031;1mx\e[0m) Exit"
@@ -37,10 +37,11 @@ echo -e ""
 	4)	
         clear
         /etc/init.d/stunnel4 restart
+	/etc/init.d/dropbear restart
 	;;
 	5)	
         clear
-        bash <(curl -L -s https://raw.githubusercontent.com/ns009/mini/main/bbr.sh)
+        edit_ports
 	6)	
         clear
         reboot
