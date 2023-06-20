@@ -23,14 +23,6 @@ email=admin@ratt.website
 # go to root
 cd
 
-#update
-apt update -y
-apt upgrade -y
-apt dist-upgrade -y
-
-# install wget and curl
-apt -y install wget curl
-
 # set time GMT +8
 ln -fs /usr/share/zoneinfo/Asia/Kuala_Lumpur /etc/localtime
 
