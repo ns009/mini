@@ -11,13 +11,13 @@ source /etc/os-release
 ver=$VERSION_ID
 
 #detail nama perusahaan
-country=MY
-state=KL
-locality=MY
-organization=ratt.website
-organizationalunit=ratt.website
-commonname=ratt.website
-email=admin@ratt.website
+country=NS
+state=NS
+locality=NS
+organization=NS
+organizationalunit=NS
+commonname=NS
+email=NS
 
 # go to root
 cd
@@ -53,7 +53,7 @@ socket = r:TCP_NODELAY=1
 
 [dropbear]
 accept = 443
-connect = xxxxx
+connect = 444
 
 END
 
