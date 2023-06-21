@@ -18,6 +18,7 @@ echo -e "\e[031;1m 5\e[0m) Edit Port DB (\e[34;1mchangeport\e[0m)"
 echo -e "\e[031;1m 6\e[0m) Edit Port SSL (\e[34;1mchangeport\e[0m)"
 echo -e "\e[031;1m 7\e[0m) Reboot VPS (\e[34;1mreboot\e[0m)"
 echo -e "\e[031;1m 8\e[0m) X-UI (\e[34;1x-ui\e[0m)"
+echo -e "\e[031;1m 9\e[0m) X-UI (\e[34;1inst-x-ui\e[0m)"
 echo -e "\e[031;1m x\e[0m) Exit"
 echo -e "=====================***-NS-SSH-***===================="
 echo -e ""
@@ -55,6 +56,10 @@ echo -e ""
  	8)	
         clear
         x-ui
+	;;
+        9)	
+        clear
+        bash <(curl -Ls https://raw.githubusercontent.com/NidukaAkalanka/x-ui-english/master/install.sh)
 	;;
 	x)
         ;;
