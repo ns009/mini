@@ -1,6 +1,7 @@
 #!/bin/bash
 rm -f /root/dropbearport
 rm -f /root/stunnel4port
+rm /etc/stunnel/stunnel.conf
 dropbearport="$(netstat -nlpt | grep -i dropbear | grep -i 0.0.0.0 | awk '{print $4}' | cut -d: -f2)"
 stunnel4port="$(netstat -nlpt | grep -i stunnel | grep -i 0.0.0.0 | awk '{print $4}' | cut -d: -f2)"
 dropbearport2="s/xxxxx/$dropbearport/g"
