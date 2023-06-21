@@ -43,11 +43,11 @@ echo -e ""
 	;;
 	5)	
         clear
-        editdropbear
+        portdb
 	;;
  	6)	
         clear
-        editstunnel4
+        portssl
 	;;
 	7)	
         clear
