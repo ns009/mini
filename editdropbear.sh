@@ -13,6 +13,17 @@ cat > /root/stunnel4port <<-END
 $stunnel4port
 END
 cd
+cat > /etc/stunnel/stunnel.conf <<-END
+cert = /etc/stunnel/stunnel.pem
+client = no
+socket = a:SO_REUSEADDR=1
+socket = l:TCP_NODELAY=1
+socket = r:TCP_NODELAY=1
+
+[dropbear]
+accept = 443
+connect = xxxxx
+END
 clear
 echo -e "\e[0m                                                   "
 echo -e "\e[94m[][][]======================================[][][]"
