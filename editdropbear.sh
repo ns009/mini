@@ -3,6 +3,7 @@ rm -f /root/dropbearport
 rm -f /root/stunnel4port
 dropbearport="$(netstat -nlpt | grep -i dropbear | grep -i 0.0.0.0 | awk '{print $4}' | cut -d: -f2)"
 stunnel4port="$(netstat -nlpt | grep -i stunnel | grep -i 0.0.0.0 | awk '{print $4}' | cut -d: -f2)"
+dropbearport2="s/xxxxx/$dropbearport/g"
 echo $dropbearport > /root/dropbearport
 cat > /root/dropbearport <<-END
 $dropbearport
