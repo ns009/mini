@@ -1,8 +1,10 @@
 #!/bin/bash
 rm -f /root/dropbearport
 rm -f /root/stunnel4port
+rm /etc/stunnel/stunnel.conf
 dropbearport="$(netstat -nlpt | grep -i dropbear | grep -i 0.0.0.0 | awk '{print $4}' | cut -d: -f2)"
 stunnel4port="$(netstat -nlpt | grep -i stunnel | grep -i 0.0.0.0 | awk '{print $4}' | cut -d: -f2)"
+dropbearport2="s/xxxxx/$dropbearport/g";
 echo $dropbearport > /root/dropbearport
 cat > /root/dropbearport <<-END
 $dropbearport
@@ -33,7 +35,21 @@ if [ $? -eq 0 ]; then
 	fi
 	Port_Change="s/$Port/$Port_New/g";
 	sed -i $Port_Change /etc/default/dropbear
+ 	cat > /etc/stunnel/stunnel.conf <<-END
+	cert = /etc/stunnel/stunnel.pem
+	client = no
+	socket = a:SO_REUSEADDR=1
+	socket = l:TCP_NODELAY=1
+	socket = r:TCP_NODELAY=1
 
+	[dropbear]
+	accept = 443
+	connect = xxxxx
+
+ 	END
+
+	/etc/init.d/stunnel4 restart
+	systemctl enable stunnel4
 	service dropbear restart > /dev/null
 	rm -f /root/dropbear
 	dropbearport="$(netstat -nlpt | grep -i dropbear | grep -i 0.0.0.0 | awk '{print $4}' | cut -d: -f2)"
