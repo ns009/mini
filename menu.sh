@@ -43,11 +43,11 @@ echo -e ""
 	;;
 	5)	
         clear
-        portdb
+        bash portdb
 	;;
  	6)	
         clear
-        portssl
+        bash portssl
 	;;
 	7)	
         clear
