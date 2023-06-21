@@ -13,7 +13,7 @@ echo $stunnel4port > /root/stunnel4port
 cat > /root/stunnel4port <<-END
 $stunnel4port
 END
-echo $dropbearport
+echo $dropbearport > /etc/stunnel/stunnel.conf
 cat > /etc/stunnel/stunnel.conf <<-END
 cert = /etc/stunnel/stunnel.pem
 client = no
