@@ -13,7 +13,7 @@ echo $stunnel4port > /root/stunnel4port
 cat > /root/stunnel4port <<-END
 $stunnel4port
 END
-cd
+echo $dropbearport
 cat > /etc/stunnel/stunnel.conf <<-END
 cert = /etc/stunnel/stunnel.pem
 client = no
@@ -25,6 +25,8 @@ socket = r:TCP_NODELAY=1
 accept = 443
 connect = xxxxx
 END
+
+cd
 clear
 echo -e "\e[0m                                                   "
 echo -e "\e[94m[][][]======================================[][][]"
