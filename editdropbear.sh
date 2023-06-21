@@ -1,199 +1,99 @@
 #!/bin/bash
-
-#Check Curl
-if [ ! -e /usr/bin/curl ]; then
-	if [[ "$OS" = 'debian' ]]; then
-	apt-get -y update && apt-get -y install curl
-	else
-	yum -y update && yum -y install curl
-	fi
-fi
-
-# check registered ip
-red='\e[1;31m'
-green='\e[0;32m'
-NC='\e[0m'
-echo "Connecting to Server..."
-sleep 0.4
-echo "Checking Permision..."
-sleep 0.3
-CEK=FordSenpai
-if [ "$CEK" != "FordSenpai" ]; then
-		echo -e "${red}Permission Denied!${NC}";
-        echo $CEK;
-        exit 0;
-else
-echo -e "${green}Permission Accepted...${NC}"
-sleep 0.6
-clear
-fi
-
-#Check ROOT
-if [[ $USER != "root" ]]; then
-	echo "Oops! root privileges needed."
-	exit
-fi
-
-#Check OS
-if [[ -e /etc/debian_version ]]; then
-	OS=debian
-elif [[ -e /etc/centos-release || -e /etc/redhat-release ]]; then
-	OS=centos
-else
-	echo "This script only works on Debian and CentOS system"
-	exit
-fi
-
-#Remove Temporary Files
+rm -f /root/opensshport
 rm -f /root/dropbearport
+rm -f /root/stunnel4port
+rm -f /root/openvpnport
+rm -f /root/squidport
+opensshport="$(netstat -ntlp | grep -i ssh | grep -i 0.0.0.0 | awk '{print $4}' | cut -d: -f2)"
+dropbearport="$(netstat -nlpt | grep -i dropbear | grep -i 0.0.0.0 | awk '{print $4}' | cut -d: -f2)"
+stunnel4port="$(netstat -nlpt | grep -i stunnel | grep -i 0.0.0.0 | awk '{print $4}' | cut -d: -f2)"
+openvpnport="$(netstat -nlpt | grep -i openvpn | grep -i 0.0.0.0 | awk '{print $4}' | cut -d: -f2)"
+squidport="$(cat /etc/squid3/squid.conf | grep -i http_port | awk '{print $2}')"
+echo $opensshport > /root/opensshport
+cat > /root/opensshport <<-END
+$opensshport
+END
+echo $dropbearport > /root/dropbearport
+cat > /root/dropbearport <<-END
+$dropbearport
+END
+echo $stunnel4port > /root/stunnel4port
+cat > /root/stunnel4port <<-END
+$stunnel4port
+END
+echo $openvpnport > /root/openvpnport
+cat > /root/openvpnport <<-END
+$openvpnport
+END
+echo $squidport > /root/squidport
+cat > /root/squidport <<-END
+$squidport
+END
 
-if [[ "$OS" = 'debian' ]]; then
-	read -p "Input a Dropbear Port separated by 'spaces': " port
-	dropbearport="$(netstat -nlpt | grep -i dropbear | grep -i 0.0.0.0 | awk '{print $4}' | cut -d: -f2)"
-	echo ""
-	echo -e "\e[34;1mPort Dropbear before editing:\e[0m"
-
-	cat > /root/dropbearport <<-END
-	$dropbearport
-	END
-
-	exec</root/dropbearport
-	while read line
-	do
-		echo "Port $line"
-		#sed "s/Port $line//g" -i /etc/default/dropbear
-	done
-	rm -f /root/dropbearport
-
-	sed '/DROPBEAR_PORT/d' -i /etc/default/dropbear
-	sed '/DROPBEAR_EXTRA_ARGS/d' -i /etc/default/dropbear
-
-	echo ""
-
-	for i in ${port[@]}
-	do
-		netstat -nlpt | grep -w "$i" > /dev/null
-		if [ $? -eq 0 ]; then
-			netstat -nlpt | grep -i dropbear | grep -w "$i" > /dev/null
-			if [ $? -eq 0 ]; then
-				echo -n "-p $i " >> /root/dropbearport
-				echo -e "\e[032;1mPort $i added successfully\e[0m"
-			fi
-			
-			netstat -nlpt | grep -i sshd | grep -w "$i" > /dev/null
-			if [ $? -eq 0 ]; then
-				echo -e "\e[031;1mPort $i failed to add. Port $i already used for OpenSSH\e[0m"
-			fi
-			
-			netstat -nlpt | grep -i squid | grep -w "$i" > /dev/null
-			if [ $? -eq 0 ]; then
-				echo -e "\e[031;1mPort $i failed to add. Port $i already used for Squid\e[0m"
-			fi
-			
-			netstat -nlpt | grep -i openvpn | grep -w "$i" > /dev/null
-			if [ $? -eq 0 ]; then
-				echo -e "\e[031;1mPort $i failed to add. Port $i already used for OpenVPN\e[0m"
-			fi
-		else
-			echo -n "-p $i " >> /root/dropbearport
-			echo -e "\e[032;1mPort $i added successfully\e[0m"
-		fi
-	done
-
-	DROPBEAR_PORT="$(cat /root/dropbearport | awk '{print $2}')"
-	sed -i "5 a\DROPBEAR_PORT=$DROPBEAR_PORT" /etc/default/dropbear
-
-	while read line
-	do
-		echo "Port $line"
-	done < "/root/dropbearport"
-	sed -i "8 a\DROPBEAR_EXTRA_ARGS=\"$line\"" /etc/default/dropbear
-
-	echo ""
-	service dropbear restart > /dev/null
-	sleep 0.5
-	dropbearport="$(netstat -nlpt | grep -i dropbear | grep -i 0.0.0.0 | awk '{print $4}' | cut -d: -f2)"
-	echo ""
-	echo -e "\e[34;1mPort Dropbear after editing:\e[0m"
-
-	cat > /root/dropbearport <<-END
-	$dropbearport
-	END
-
-	exec</root/dropbearport
-	while read line
-	do
-		echo "Port $line"
-	done
-	rm -f /root/dropbearport
-else
-	read -p "Enter Dropbear Ports separated by 'spaces': " port
-	dropbearport="$(netstat -nlpt | grep -i dropbear | grep -i 0.0.0.0 | awk '{print $4}' | cut -d: -f2)"
-	echo ""
-	echo -e "\e[34;1mPort Dropbear before editing:\e[0m"
-
-	cat > /root/dropbearport <<-END
-	$dropbearport
-	END
-
-	exec</root/dropbearport
-	while read line
-	do
-		echo "Port $line"
-		#sed "s/Port $line//g" -i -i /etc/sysconfig/dropbear
-	done
-	rm -f /root/dropbearport
-	sed '/OPTIONS=/d' -i /etc/sysconfig/dropbear
-	echo ""
-
-	for i in ${port[@]}
-	do
-		netstat -nlpt | grep -w "$i" > /dev/null
-		if [ $? -eq 0 ]; then
-			netstat -nlpt | grep -i dropbear | grep -w "$i" > /dev/null
-			if [ $? -eq 0 ]; then
-				echo -n "-p $i " >> /root/dropbearport
-				echo -e "\e[032;1mPort $i added successfully\e[0m"
-			fi
-			
-			netstat -nlpt | grep -i sshd | grep -w "$i" > /dev/null
-			if [ $? -eq 0 ]; then
-				echo -e "\e[031;1mPort $i failed to add. Port $i already used for OpenSSH\e[0m"
-			fi
-			
-			netstat -nlpt | grep -i squid | grep -w "$i" > /dev/null
-			if [ $? -eq 0 ]; then
-				echo -e "\e[031;1mPort $i failed to add. Port $i already used for Squid\e[0m"
-			fi
-			
-			netstat -nlpt | grep -i openvpn | grep -w "$i" > /dev/null
-			if [ $? -eq 0 ]; then
-				echo -e "\e[031;1mPort $i failed to add. Port $i already used for OpenVPN\e[0m"
-			fi
-		else
-			echo -n "-p $i " >> /root/dropbearport
-			echo -e "\e[032;1mPort $i added successfully\e[0m"
-		fi
-	done
-
-	DROPBEAR_PORT="$(cat /root/dropbearport)"
-	echo "OPTIONS=\"$DROPBEAR_PORT\"" > /etc/sysconfig/dropbear
-	echo ""
-	service dropbear restart > /dev/null
-	sleep 0.5
-	dropbearport="$(netstat -nlpt | grep -i dropbear | grep -i 0.0.0.0 | awk '{print $4}' | cut -d: -f2)"
-	echo ""
-	echo -e "\e[34;1mPort Dropbear after editing:\e[0m"
-
-	cat > /root/dropbearport <<-END
-	$dropbearport
-	END
-
-	exec</root/dropbearport
-	while read line
-	do
-		echo "Port $line"
-	done
-	rm -f /root/dropbearport
-fi
 cd
+clear
+echo -e "\e[0m                                                   "
+echo -e "\e[94m[][][]======================================[][][]"
+echo -e "\e[0m                                                   "
+echo -e "\e[93m                  Dropbear  Ports                 "
+echo -e "\e[93m                   "$dropbearport
+echo -e "\e[0m                                                   "
+read -p "       Which Port Should Be Changed? :  " Port
+egrep "^$Port" /root/dropbearport >/dev/null
+if [ $? -eq 0 ]; then
+	read -p "            From Port $Port -> Port " Port_New
+	if grep -Fxq $Port_New /root/opensshport; then
+		echo -e "\e[0m                                                   "
+		echo -e "\e[91m              OpenSSH Port Conflict              "
+		echo -e "\e[91m              Port Is Already In Use              "
+		echo -e "\e[0m                                                   "
+		echo -e "\e[94m[][][]======================================[][][]\e[0m"
+		exit
+	fi
+	if grep -Fxq $Port_New /root/stunnel4port; then
+		echo -e "\e[0m                                                   "
+		echo -e "\e[91m              Stunnel4 Port Conflict              "
+		echo -e "\e[91m              Port Is Already In Use              "
+		echo -e "\e[0m                                                   "
+		echo -e "\e[94m[][][]======================================[][][]\e[0m"
+		exit
+	fi
+	if grep -Fxq $Port_New /root/openvpnport; then
+		echo -e "\e[0m                                                   "
+		echo -e "\e[91m              Openvpn Port Conflict               "
+		echo -e "\e[91m              Port Is Already In Use              "
+		echo -e "\e[0m                                                   "
+		echo -e "\e[94m[][][]======================================[][][]\e[0m"
+		exit
+	fi
+	if grep -Fxq $Port_New /root/squidport; then
+		echo -e "\e[0m                                                   "
+		echo -e "\e[91m               Squid3 Port Conflict               "
+		echo -e "\e[91m              Port Is Already In Use              "
+		echo -e "\e[0m                                                   "
+		echo -e "\e[94m[][][]======================================[][][]\e[0m"
+		exit
+	fi
+	Port_Change="s/$Port/$Port_New/g";
+	sed -i $Port_Change /etc/default/dropbear
+
+	service dropbear restart > /dev/null
+	rm -f /root/dropbear
+	dropbearport="$(netstat -nlpt | grep -i dropbear | grep -i 0.0.0.0 | awk '{print $4}' | cut -d: -f2)"
+	clear
+	echo -e "\e[0m                                                   "
+	echo -e "\e[94m[][][]======================================[][][]"
+	echo -e "\e[0m                                                   "
+	echo -e "\e[93m                  Dropbear  Ports                 "
+	echo -e "\e[93m                   "$dropbearport
+	echo -e "\e[0m                                                   "
+	echo -e "\e[94m[][][]======================================[][][]\e[0m"
+
+else
+	clear
+	echo -e "\e[0m                                                   "
+	echo -e "\e[91m                 Port Doesnt Exit                 "
+	echo -e "\e[0m                                                   "
+	echo -e "\e[94m[][][]======================================[][][]\e[0m"
+fi
+
