@@ -75,8 +75,8 @@ wget -O menu "https://raw.githubusercontent.com/ns009/mini/main/menu.sh"
 wget -O usernew "https://raw.githubusercontent.com/ns009/mini/main/usernew.sh"
 wget -O member "https://raw.githubusercontent.com/ns009/mini/main/member.sh"
 wget -O delete "https://raw.githubusercontent.com/ns009/mini/main/deluser.sh"
-wget -O editdropbear "https://raw.githubusercontent.com/ns009/mini/main/portdb.sh"
-wget -O editstunnel4 "https://raw.githubusercontent.com/ns009/mini/main/portssl.sh"
+wget -O portdb "https://raw.githubusercontent.com/ns009/mini/main/portdb.sh"
+wget -O portssl "https://raw.githubusercontent.com/ns009/mini/main/portssl.sh"
 chmod +x menu
 chmod +x usernew
 chmod +x member
