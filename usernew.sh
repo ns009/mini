@@ -1,4 +1,7 @@
 #!/bin/bash
+echo "Checking VPS"
+db="$(cat /etc/default/dropbear | grep -i DROPBEAR_PORT | head -n 2 | cut -d= -f2 | sed 's/ //g' | tr '\n' ' ' | awk '{print $1}')"
+ssl="$(cat /etc/stunnel/stunnel.conf | grep -i accept | head -n 2 | cut -d= -f2 | sed 's/ //g' | tr '\n' ' ' | awk '{print $1}')"
 
 read -p "Username : " Login
 read -p "Password : " Pass
@@ -28,9 +31,8 @@ echo -e "Username       : $Login "
 echo -e "Password       : $Pass"
 echo -e "==============================="
 echo -e "IP Server      : $IP"
-echo -e "OpenSSH        : 445"
-echo -e "Dropbear       : 444"
-echo -e "SSL/TLS        : 443"
+echo -e "Dropbear       : $db"
+echo -e "SSL/TLS        : $ssl"
 echo -e "==============================="
 echo -e "Active until   : $exp"
 echo -e "Script by NS-SSH"
